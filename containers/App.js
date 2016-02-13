@@ -77,7 +77,6 @@ class App extends Component {
         <Posts
           channel={currentChannel}
           posts={currentPostsArray}
-          {/*handlePostClick={}*/}
         />
         {children}
       </div>

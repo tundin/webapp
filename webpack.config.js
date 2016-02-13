@@ -24,7 +24,14 @@ module.exports = {
         loaders: [ 'babel' ],
         exclude: /node_modules/,
         include: __dirname
+      },
+      {
+        test: /\.css$/,
+        loaders: ["style-loader", "css-loader", "postcss-loader"],
       }
     ]
+  },
+  postcss: function() {
+    return [require("autoprefixer"), require("precss")]
   }
 }

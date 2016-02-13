@@ -4,6 +4,8 @@ import { render } from 'react-dom'
 import Root from './containers/Root'
 import configureStore from './store/configureStore'
 
+require("./styles/main.css")
+
 const store = configureStore()
 
 render(
