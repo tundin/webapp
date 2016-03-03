@@ -6,3 +6,11 @@ body{
   width: 80%;
   margin: 0 auto;
 }
+
+.channel-link {
+  display: block;
+}
+
+.channel-link.active {
+  font-size: 1.5em;
+}

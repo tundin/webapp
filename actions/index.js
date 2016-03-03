@@ -4,9 +4,9 @@ import { intersection } from "lodash"
 
 // POSTS
 
-export const POSTS_REQUEST = 'POST_REQUEST'
-export const POSTS_SUCCESS = 'POST_SUCCESS'
-export const POSTS_FAILURE = 'POST_FAILURE'
+export const POSTS_REQUEST = 'POSTS_REQUEST'
+export const POSTS_SUCCESS = 'POSTS_SUCCESS'
+export const POSTS_FAILURE = 'POSTS_FAILURE'
 
 export const SELECT_POST = "SELECT_POST"
 
@@ -25,6 +25,7 @@ function fetchPosts(tagIds) {
 // Fetches posts from API unless cached.
 // Relies on Redux Thunk middleware.
 export function loadPosts(tagIds, requiredFields = []) {
+  console.log("loadPosts");
   return (dispatch, getState) => {
     // const user = getState().entities.users[login]
     // if (user && requiredFields.every(key => user.hasOwnProperty(key))) {
@@ -54,22 +55,23 @@ export const CHANGE_CHANNEL = "CHANGE_CHANNEL"
 
 // Fetches channels
 
-function fetchChannels(channelIds) {
+function fetchChannels(authenticated) {
   return {
     [CALL_API]: {
       types: [ CHANNELS_REQUEST, CHANNELS_SUCCESS, CHANNELS_FAILURE ],
       endpoint: "/channels",
-      schema: Schemas.CHANNELS
+      schema: Schemas.CHANNELS,
+      authenticated: authenticated
     }
   }
 }
 
 // Fetches channels from API TODO: unless all required fields cached
 
-export function loadChannels(channelIds, requiredFields){
+export function loadChannels(){
   return (dispatch, getState) => {
 
-    return dispatch(fetchChannels(channelIds))
+    return dispatch(fetchChannels(getState().auth.isAuthenticated))
   }
 }
 
@@ -79,5 +81,53 @@ export function changeToChannel(channelId) {
   return {
     type: CHANGE_CHANNEL,
     channel: channelId
+  }
+}
+
+// AUTHENTICATION
+
+// There are two possible states for our login
+// process and we need actions for each of them.
+//
+// We also need one to show the Lock widget.
+export const SHOW_LOCK = 'SHOW_LOCK'
+export const LOCK_SUCCESS = 'LOCK_SUCCESS'
+export const LOCK_ERROR = 'LOCK_ERROR'
+
+function showLock() {
+  return {
+    type: SHOW_LOCK
+  }
+}
+
+function lockSuccess(profile, token) {
+  return {
+    type: LOCK_SUCCESS,
+    profile,
+    token
+  }
+}
+
+function lockError(err) {
+  return {
+    type: LOCK_ERROR,
+    err
+  }
+}
+
+// Opens the Lock widget and
+// dispatches actions along the way
+export function login() {
+  const lock = new Auth0Lock('nmkgcfijx8LiICEIhfUL2Q12UcEIEFHx', 'jsm.auth0.com');
+  return dispatch => {
+    lock.show((err, profile, token) => {
+      if(err) {
+        dispatch(lockError(err))
+        return
+      }
+      localStorage.setItem('profile', JSON.stringify(profile))
+      localStorage.setItem('id_token', token)
+      dispatch(lockSuccess(profile, token))
+    })
   }
 }

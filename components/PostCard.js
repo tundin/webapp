@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from "react"
 
-export default class Post extends Component {
+export default class PostCard extends Component {
   constructor(props) {
     super(props)
   }
@@ -16,7 +16,7 @@ export default class Post extends Component {
   }
 }
 
-Post.propTypes = {
+PostCard.propTypes = {
   post: PropTypes.object,
   currentChannel: PropTypes.string
 }
