@@ -13,6 +13,7 @@
     "css-loader": "^0.23.1",
     "humps": "^1.0.0",
     "isomorphic-fetch": "^2.2.1",
+    "lost": "^6.7.2",
     "normalizr": "^2.0.0",
     "postcss-loader": "^0.8.1",
     "precss": "^1.4.0",
@@ -21,10 +22,12 @@
     "react-redux": "^4.4.0",
     "react-router": "^2.0.0-rc5",
     "react-router-redux": "^3.0.0",
+    "rebass": "^0.2.1",
     "redux": "^3.3.1",
     "redux-logger": "^2.5.0",
     "redux-thunk": "^1.0.3",
-    "style-loader": "^0.13.0"
+    "style-loader": "^0.13.0",
+    "svg-react-loader": "^0.3.3"
   },
   "devDependencies": {
     "babel-core": "^6.5.1",

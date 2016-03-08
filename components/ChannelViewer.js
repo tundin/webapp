@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from "react-redux"
 import { loadPosts } from "../actions"
-import PostCard from "./PostCard"
-import { intersection } from "lodash"
+import ChannelHeader from "./ChannelHeader"
+import PostIndex from "./PostIndex"
+import { PageHeader, Container, Card, CardImage, Heading } from "rebass"
 
 class ChannelViewer extends Component {
   constructor(props) {
@@ -24,18 +25,13 @@ class ChannelViewer extends Component {
 
   render() {
     const { channel, posts } = this.props
-    if (channel && posts) {
-      console.log("channel: ", channel);
-      return ( <div>
-        <h1>{channel.id}</h1>
-        <ul>
-          { posts.map((post) => (<PostCard key={post.id} post={post} />)) }
-        </ul>
-      </div>)
-    } else {
-      return ( <h2>Loading...</h2>)
+    return (
+      <div className="channel-viewer">
+        <ChannelHeader channel={channel} />
+        <PostIndex posts={posts} />
+      </div>
+      )
     }
-  }
 }
 
 ChannelViewer.propTypes = {
@@ -52,11 +48,10 @@ function mapStateToProps(state, props) {
       return entities.posts[postId]
     })
   .filter((post) => {
-    for (var i = 0; i < channel.tags.length; i += 0) {
-      if (post.tags.indexOf(channel.tags[i]) > -1) {
+    for (var i = 0; i < post.tags.length; i += 1) {
+      if (channel.tags.indexOf(post.tags[i]) > -1) {
         return true
       }
-      return
     }
   })
   return { channel, posts }

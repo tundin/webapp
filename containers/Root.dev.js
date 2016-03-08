@@ -5,7 +5,6 @@ import DevTools from './DevTools'
 import { Router, browserHistory } from 'react-router'
 
 export default class Root extends Component {
-
   render() {
     const { store } = this.props
     return (
@@ -18,6 +17,7 @@ export default class Root extends Component {
     )
   }
 }
+
 
 Root.propTypes = {
   store: PropTypes.object.isRequired

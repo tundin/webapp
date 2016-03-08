@@ -13,6 +13,7 @@ export const SELECT_POST = "SELECT_POST"
 // Fetches posts TODO: fetch individual post
 
 function fetchPosts(tagIds) {
+  console.log("Fetching posts for tags:", tagIds);
   return {
     [CALL_API]: {
       types: [ POSTS_REQUEST, POSTS_SUCCESS, POSTS_FAILURE ],

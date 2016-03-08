@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { loadChannels } from "../actions"
 import { push } from "react-router-redux"
 import { Link } from "react-router"
+import Arrow from "../icons/arrow.svg"
 
 
 
@@ -25,31 +26,41 @@ class Tuner extends Component {
   }
 
   render() {
-    const { channels } = this.props
+    const { channels, channelId, channelIndex } = this.props
+    const orderedChannels = channels.slice(channelIndex).concat(channels.slice(0, channelIndex))
+    const linkToChannel = (channel, arrow) => {
+      if (!channel) return
+      
+      return (<Link to={"/to/" + channel.id}>
+        { arrow ? <Arrow /> : (<h2>{channel.id}</h2>)  }
+      </Link>)
+    }
     return (
-      <div>
+      <div className="tuner">
         <p>Tune in to...</p>
-        {(channels.length !== 0) ?
-          channels.map(channel =>
-            (<Link
-              to={"/to/" + channel.id}
-              key={channel.id}
-              activeClassName="active"
-              className="channel-link"
-              >
-                {channel.id}
-              </Link>))
-        :
-          (<h3>Loading...</h3>)
-        }
-        {/*<select
-          autofocus="true"
-          ref="select"
-          onChange={this.handleChange}>
-          {channels.map(channel => {
-            return (<option value={channel.id} key={channel.id}>{channel.name}</option>)
-          })}
-        </select>*/}
+        <div className="carousel">
+          <div className="prevArrow">
+            {linkToChannel(orderedChannels[orderedChannels.length - 1], true)}
+          </div>
+          <div className="prev2">
+            {linkToChannel(orderedChannels[orderedChannels.length - 2])}
+          </div>
+          <div className="prev1">
+            {linkToChannel(orderedChannels[orderedChannels.length - 1])}
+          </div>
+          <div className="current">
+            {linkToChannel(orderedChannels[0])}
+          </div>
+          <div className="next1">
+            {linkToChannel(orderedChannels[1])}
+          </div>
+          <div className="next2">
+            {linkToChannel(orderedChannels[2])}
+          </div>
+          <div className="nextArrow">
+          {linkToChannel(orderedChannels[1], true)}
+          </div>
+        </div>
         <p>
           Move the DevTools with Ctrl+W or hide them with Ctrl+H.
         </p>
@@ -60,14 +71,20 @@ class Tuner extends Component {
 
 Tuner.propTypes = {
   channels: PropTypes.array.isRequired,
+  channelId: PropTypes.string,
+  channelIndex: PropTypes.number
 }
 
 function mapStateToProps(state, props){
   const { entities, auth, current } = state
+  const { channelId } = props.params
   let { channels } = entities
   channels = Object.keys(channels).map(id => channels[id])
 
-  return { channels }
+  const channelIndex = channels.findIndex(channel => channel.id === channelId)
+
+
+  return { channels, channelId, channelIndex }
 
 }
 

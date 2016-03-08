@@ -1,17 +1,23 @@
 import React, { Component, PropTypes } from "react"
+import { Link } from
+
 
 export default class PostCard extends Component {
-  constructor(props) {
-    super(props)
-  }
+
 
   render() {
-    const { post } = this.props
+
+    const { title, imgUrls } = this.props.post
     return (
-      <li >
-        <h3>{post.title}</h3>
-        <p>{post.body}</p>
-      </li>
+      <div className="PostCard">
+        <h1 className="PostTitle">
+          {title}
+        </h1>
+        <img
+          src={imgUrls.length > 0 ? imgUrls[0] : "https://tundinmedia.blob.core.windows.net/images/twitter|112323837/tundin.jpeg" }
+          alt=""
+        />
+      </div>
     )
   }
 }

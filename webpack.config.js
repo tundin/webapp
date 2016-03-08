@@ -26,12 +26,16 @@ module.exports = {
         include: __dirname
       },
       {
+        test: /\.svg$/,
+        loaders: [ "babel", "svg-react-loader"]
+      },
+      {
         test: /\.css$/,
         loaders: ["style-loader", "css-loader", "postcss-loader"],
       }
     ]
   },
   postcss: function() {
-    return [require("autoprefixer"), require("precss")]
+    return [require("autoprefixer"), require("precss"), require("lost")]
   }
 }

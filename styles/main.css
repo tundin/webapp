@@ -1,14 +1,59 @@
-body{
-  background: lemonchiffon;
+$ivory: #F5F5F0;
+$darkGray: #333;
+
+@lost gutter 1em;
+
+* {
+  box-sizing: border-box;
 }
 
-.posts {
-  width: 80%;
+body{
+  background: $ivory;
+  color: $darkGray;
+  lost-utility: edit;
+  line-height: 1.5;
+}
+
+.PostIndex {
+  lost-center: 80%;
+}
+
+.PostCard {
+  box-shadow: 3px 3px 1px grey;
+}
+
+.PostCard img {
+  max-width:100%;
+  max-height: 500px;
+  display:block;
   margin: 0 auto;
 }
 
+.tuner {
+  text-align: center;
+  lost-utility: clearfix;
+  .carousel {
+    lost-utility: clearfix;
+    .prevArrow,.nextArrow {
+      lost-column: 1/12 0;
+    }
+    .prev2,.prev1,.next1,.next2 {
+      font-size: 0.75em
+    }
+    .prev2,.prev1,.current,.next1,.next2 {
+      lost-column: 2/12 0;
+    }
+    .prevArrow svg {
+      transform: rotate(.5turn);
+    }
+
+  }
+}
+
+
 .channel-link {
-  display: block;
+  display: inline-block;
+  padding: 1em;
 }
 
 .channel-link.active {
