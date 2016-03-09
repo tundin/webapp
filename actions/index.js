@@ -8,8 +8,6 @@ export const POSTS_REQUEST = 'POSTS_REQUEST'
 export const POSTS_SUCCESS = 'POSTS_SUCCESS'
 export const POSTS_FAILURE = 'POSTS_FAILURE'
 
-export const SELECT_POST = "SELECT_POST"
-
 // Fetches posts TODO: fetch individual post
 
 function fetchPosts(tagIds) {
@@ -23,10 +21,24 @@ function fetchPosts(tagIds) {
   }
 }
 
+export const POST_REQUEST = 'POST_REQUEST'
+export const POST_SUCCESS = 'POST_SUCCESS'
+export const POST_FAILURE = 'POST_FAILURE'
+
+function fetchPost(postId) {
+  console.log("Fetching post with id:", postId);
+  return {
+    [CALL_API]: {
+      types: [ POST_REQUEST, POST_SUCCESS, POST_FAILURE],
+      endpoint: "/posts/" + postId,
+      schema: Schemas.POST
+    }
+  }
+}
+
 // Fetches posts from API unless cached.
 // Relies on Redux Thunk middleware.
 export function loadPosts(tagIds, requiredFields = []) {
-  console.log("loadPosts");
   return (dispatch, getState) => {
     // const user = getState().entities.users[login]
     // if (user && requiredFields.every(key => user.hasOwnProperty(key))) {
@@ -36,14 +48,13 @@ export function loadPosts(tagIds, requiredFields = []) {
   }
 }
 
-// Select focused post for channel
-export function selectPost(postId, channelId) {
-  return {
-    type: SELECT_POST,
-    ids: { postId, channelId }
+export function loadPost(postId, requiredFields = []) {
+  return (dispatch, getState) => {
+    const { posts } = getState().entities
+    if (posts[postId]) return null
+    return dispatch(fetchPost(postId))
   }
 }
-
 
 
 // CHANNELS

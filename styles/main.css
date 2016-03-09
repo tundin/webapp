@@ -1,4 +1,3 @@
-$ivory: #F5F5F0;
 $darkGray: #333;
 
 @lost gutter 1em;
@@ -8,9 +7,10 @@ $darkGray: #333;
 }
 
 body{
-  background: $ivory;
+  background-color: #f0f0f0;
+  background-image: url("http://www.transparenttextures.com/patterns/asfalt-dark.png");
   color: $darkGray;
-  lost-utility: edit;
+  /*lost-utility: edit;*/
   line-height: 1.5;
 }
 
@@ -19,14 +19,27 @@ body{
 }
 
 .PostCard {
+  background-image: url("http://www.transparenttextures.com/patterns/cardboard-flat.png");
+  padding: 1em;
+  margin: 1em 0;
   box-shadow: 3px 3px 1px grey;
+}
+
+.PostCard a {
+  text-decoration: none;
+  color: inherit;
 }
 
 .PostCard img {
   max-width:100%;
-  max-height: 500px;
+  max-height: 400px;
   display:block;
   margin: 0 auto;
+}
+
+.PostCard .PostTitle {
+  background: linear-gradient(to right, #f0f0f0, rgba(0,0,0,0));
+  padding: 0.5em;
 }
 
 .tuner {

@@ -70,6 +70,7 @@ channelSchema.define({
 
 // Schema for API response
 export const Schemas = {
+  POST: postSchema,
   POSTS: arrayOf(postSchema),
   TAGS: arrayOf(tagSchema),
   CHANNELS: arrayOf(channelSchema)

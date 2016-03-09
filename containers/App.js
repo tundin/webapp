@@ -38,12 +38,14 @@ export default class App extends Component {
   }
 
   render() {
-    const { Tuner, Channel } = this.props
+    const { Tuner, Channel, children } = this.props
+    console.log("App props:", this.props);
     return (
       <div>
         {this.renderErrorMessage()}
         {Tuner}
         {Channel}
+        {children}
       </div>
     )
   }

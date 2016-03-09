@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from "react"
-import { Link } from
+import { Link } from "react-router"
 
 
 export default class PostCard extends Component {
@@ -7,16 +7,23 @@ export default class PostCard extends Component {
 
   render() {
 
-    const { title, imgUrls } = this.props.post
+    const { title, imgUrls, id } = this.props.post
+    let style = {};
+    if (imgUrls.length > 0) {
+      style.background = `url(${imgUrls[0]}) no-repeat center right`
+      style.backgroundSize = "cover"
+    }
+    console.log("background: ", style);
     return (
-      <div className="PostCard">
-        <h1 className="PostTitle">
+      <div
+      className="PostCard"
+      style={style}
+      >
+        <Link to={"/post/" + id }>
+          <h1 className="PostTitle">
           {title}
-        </h1>
-        <img
-          src={imgUrls.length > 0 ? imgUrls[0] : "https://tundinmedia.blob.core.windows.net/images/twitter|112323837/tundin.jpeg" }
-          alt=""
-        />
+          </h1>
+          </Link>
       </div>
     )
   }
